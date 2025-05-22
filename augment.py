@@ -5,15 +5,12 @@ import soundfile as sf
 from tqdm import tqdm
 import random
 
-# === CONFIG ===
 INPUT_DIR = "GTZAN/genres_processed"
 OUTPUT_DIR = "GTZAN/genres_augmented"
 AUG_PER_FILE = 3
 SAMPLE_RATE = 22050
 DURATION = 5  # seconds
 TARGET_SAMPLES = SAMPLE_RATE * DURATION
-
-# === AUGMENTATION FUNCTIONS ===
 
 def time_shift(y, shift_max=0.2):
     shift = int(np.random.uniform(-shift_max, shift_max) * len(y))
@@ -27,7 +24,7 @@ def apply_time_stretch(y, rate_range=(0.8, 1.2)):
     try:
         return librosa.effects.time_stretch(y, rate)
     except:
-        return y  # fallback if time stretch fails
+        return y
 
 def add_noise(y, noise_factor=0.005):
     noise = np.random.randn(len(y))
@@ -50,7 +47,6 @@ def augment_audio(y, sr):
         y = volume_scale(y)
     return y
 
-# === MAIN AUGMENTATION SCRIPT ===
 
 def augment_dataset():
     for root, dirs, files in os.walk(INPUT_DIR):

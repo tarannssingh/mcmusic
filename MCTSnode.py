@@ -3,14 +3,14 @@ import math
 class MCTSnode:
     def __init__(self, features = None, genre = None, parent = None):
             
-        self.features = features # audio featire dictionaru
+        self.features = features # audio feature dictionary
         self.genre = genre # genre hypothesis like blues, jazz, pop
         self.parent = parent # reference to parent node
 
         self.children = [] # list of chile nodes from parent node
         self.exploredGenres = set() # set of genres already explored from this node (Self)
 
-        self.visits = 0 # number of times this node has been visited 
+        self.visits = 0 # number of times this node has been visited
         self.totalReward = 0.0 # sum of rewards from all simulations used in the UCB1 formula to balance exploration and exploitation
 
     def addChildren (self, genre):
